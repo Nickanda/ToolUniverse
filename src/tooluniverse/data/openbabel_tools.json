@@ -1,0 +1,385 @@
+{
+  "ConvertMoleculeFormat": {
+    "tool_url": "/convert_molecule_format",
+    "description": "Convert a molecule from one chemical format to another",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation in the input format"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string (smiles, mol, pdb, etc.)",
+          "default": "smiles"
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Desired output format",
+          "default": "smi"
+        },
+        "generate_3d": {
+          "type": "boolean",
+          "description": "Whether to generate 3D coordinates",
+          "default": false
+        }
+      },
+      "required": ["input_string"]
+    }
+  },
+  "Generate3DStructure": {
+    "tool_url": "/generate_3d_structure",
+    "description": "Generate a 3D structure from a molecular representation",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation (typically SMILES)"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string",
+          "default": "smiles"
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Desired output format",
+          "default": "pdb"
+        },
+        "forcefield": {
+          "type": "string",
+          "description": "Force field to use for optimization",
+          "default": "MMFF94"
+        },
+        "steps": {
+          "type": "integer",
+          "description": "Number of optimization steps",
+          "default": 500
+        }
+      },
+      "required": ["input_string"]
+    }
+  },
+  "CalculateMolecularProperties": {
+    "tool_url": "/calculate_properties",
+    "description": "Calculate various molecular properties of a compound",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation (SMILES, MOL, etc.)"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string",
+          "default": "smiles"
+        },
+        "properties": {
+          "type": "array",
+          "description": "List of properties to calculate (default: all available)",
+          "items": {
+            "type": "string",
+            "enum": [
+              "molecular_weight",
+              "logp",
+              "psa",
+              "mr",
+              "atoms",
+              "bonds",
+              "hba",
+              "hbd",
+              "rotatable_bonds",
+              "exact_mass",
+              "formula"
+            ]
+          },
+          "default": []
+        }
+      },
+      "required": ["input_string"]
+    }
+  },
+  "CalculateMolecularFingerprint": {
+    "tool_url": "/calculate_fingerprint",
+    "description": "Calculate a molecular fingerprint",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation (SMILES, MOL, etc.)"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string",
+          "default": "smiles"
+        },
+        "fp_type": {
+          "type": "string",
+          "description": "Fingerprint type",
+          "default": "FP2",
+          "enum": ["FP2", "FP3", "FP4", "MACCS"]
+        }
+      },
+      "required": ["input_string"]
+    }
+  },
+  "CalculateMolecularSimilarity": {
+    "tool_url": "/calculate_similarity",
+    "description": "Calculate similarity between two molecules",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "query_string": {
+          "type": "string",
+          "description": "First molecular representation (SMILES, MOL, etc.)"
+        },
+        "target_string": {
+          "type": "string",
+          "description": "Second molecular representation"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input strings",
+          "default": "smiles"
+        },
+        "fp_type": {
+          "type": "string",
+          "description": "Fingerprint type",
+          "default": "FP2",
+          "enum": ["FP2", "FP3", "FP4", "MACCS"]
+        },
+        "similarity_metric": {
+          "type": "string",
+          "description": "Similarity metric",
+          "default": "tanimoto",
+          "enum": ["tanimoto", "dice"]
+        }
+      },
+      "required": ["query_string", "target_string"]
+    }
+  },
+  "PerformSubstructureSearch": {
+    "tool_url": "/substructure_search",
+    "description": "Search for a substructure pattern within a molecule",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "molecule_string": {
+          "type": "string",
+          "description": "Molecule to search within (SMILES, MOL, etc.)"
+        },
+        "pattern_string": {
+          "type": "string",
+          "description": "SMARTS pattern to search for"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of molecule_string",
+          "default": "smiles"
+        }
+      },
+      "required": ["molecule_string", "pattern_string"]
+    }
+  },
+  "GenerateMoleculeImage": {
+    "tool_url": "/generate_molecule_image",
+    "description": "Generate a 2D depiction of a molecule",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation (SMILES, MOL, etc.)"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string",
+          "default": "smiles"
+        },
+        "image_format": {
+          "type": "string",
+          "description": "Format of the output image",
+          "default": "png",
+          "enum": ["png", "svg", "jpg"]
+        },
+        "width": {
+          "type": "integer",
+          "description": "Image width in pixels",
+          "default": 300
+        },
+        "height": {
+          "type": "integer",
+          "description": "Image height in pixels",
+          "default": 200
+        }
+      },
+      "required": ["input_string"]
+    }
+  },
+  "ChemicalFormulaToMass": {
+    "tool_url": "/formula_to_mass",
+    "description": "Calculate the mass of a chemical formula",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "formula": {
+          "type": "string",
+          "description": "Chemical formula (e.g., 'H2O', 'C6H12O6')"
+        }
+      },
+      "required": ["formula"]
+    }
+  },
+  "GenerateConformers": {
+    "tool_url": "/generate_conformers",
+    "description": "Generate multiple conformers of a molecule",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation (SMILES, MOL, etc.)"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string",
+          "default": "smiles"
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Desired output format",
+          "default": "sdf"
+        },
+        "num_conformers": {
+          "type": "integer",
+          "description": "Number of conformers to generate",
+          "default": 10
+        }
+      },
+      "required": ["input_string"]
+    }
+  },
+  "MolecularDocking": {
+    "tool_url": "/molecular_docking",
+    "description": "Perform a simple molecular docking using OpenBabel",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "receptor_string": {
+          "type": "string",
+          "description": "Receptor molecule (protein) representation"
+        },
+        "ligand_string": {
+          "type": "string",
+          "description": "Ligand molecule representation"
+        },
+        "receptor_format": {
+          "type": "string",
+          "description": "Format of receptor",
+          "default": "pdb"
+        },
+        "ligand_format": {
+          "type": "string",
+          "description": "Format of ligand",
+          "default": "sdf"
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Format for docked results",
+          "default": "sdf"
+        },
+        "num_poses": {
+          "type": "integer",
+          "description": "Number of poses to generate",
+          "default": 10
+        }
+      },
+      "required": ["receptor_string", "ligand_string"]
+    }
+  },
+  "AnalyzeBonds": {
+    "tool_url": "/analyze_bonds",
+    "description": "Analyze the bonds in a molecule",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation (SMILES, MOL, etc.)"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string",
+          "default": "smiles"
+        }
+      },
+      "required": ["input_string"]
+    }
+  },
+  "MergeMultipleMolecules": {
+    "tool_url": "/merge_molecules",
+    "description": "Merge multiple molecules into a single file",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_strings": {
+          "type": "array",
+          "description": "List of molecular representations",
+          "items": {
+            "type": "string"
+          }
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input strings",
+          "default": "smiles"
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Format for output file",
+          "default": "sdf"
+        },
+        "generate_3d": {
+          "type": "boolean",
+          "description": "Whether to generate 3D coordinates",
+          "default": false
+        }
+      },
+      "required": ["input_strings"]
+    }
+  },
+  "FragmentMolecule": {
+    "tool_url": "/fragment_molecule",
+    "description": "Fragment a molecule into smaller parts",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "input_string": {
+          "type": "string",
+          "description": "Molecular representation (SMILES, MOL, etc.)"
+        },
+        "input_format": {
+          "type": "string",
+          "description": "Format of the input string",
+          "default": "smiles"
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Format for output fragments",
+          "default": "smiles"
+        },
+        "method": {
+          "type": "string",
+          "description": "Fragmentation method",
+          "default": "rotatable_bonds",
+          "enum": ["rotatable_bonds", "rings", "functional_groups"]
+        }
+      },
+      "required": ["input_string"]
+    }
+  }
+}

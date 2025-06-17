@@ -1,6 +1,6 @@
 [
     {
-        "name": "get_associated_targets_by_disease_efoId",
+        "name": "OpenTargets_get_associated_targets_by_disease_efoId",
         "description": "Find targets associated with a specific disease or phenotype based on efoId.",
         "label": [
             "Disease",
@@ -24,7 +24,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_associated_diseases_phenotypes_by_target_ensemblID",
+        "name": "OpenTargets_get_diseases_phenotypes_by_target_ensembl",
         "description": "Find diseases or phenotypes associated with a specific target using ensemblId.",
         "label": [
             "Target",
@@ -48,7 +48,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "target_disease_evidence",
+        "name": "OpenTargets_target_disease_evidence",
         "description": "Explore evidence that supports a specific target-disease association. Input is disease efoId and target ensemblID.",
         "label": [
             "Target",
@@ -77,7 +77,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_warnings_by_chemblId",
+        "name": "OpenTargets_get_drug_warnings_by_chemblId",
         "description": "Retrieve warnings for a specific drug using ChEMBL ID.",
         "parameter": {
             "type": "object",
@@ -104,7 +104,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_mechanisms_of_action_by_chemblId",
+        "name": "OpenTargets_get_drug_mechanisms_of_action_by_chemblId",
         "description": "Retrieve the mechanisms of action associated with a specific drug using chemblId.",
         "parameter": {
             "type": "object",
@@ -129,7 +129,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_associated_drugs_by_disease_efoId",
+        "name": "OpenTargets_get_associated_drugs_by_disease_efoId",
         "description": "Retrieve known drugs associated with a specific disease by disease efoId.",
         "parameter": {
             "type": "object",
@@ -157,7 +157,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_similar_entities_by_disease_efoId",
+        "name": "OpenTargets_get_similar_entities_by_disease_efoId",
         "description": "Retrieve similar entities for a given disease efoId using a model trained with PubMed.",
         "parameter": {
             "type": "object",
@@ -191,7 +191,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_similar_entities_by_drug_chemblId",
+        "name": "OpenTargets_get_similar_entities_by_drug_chemblId",
         "description": "Retrieve similar entities for a given drug chemblId using a model trained with PubMed.",
         "parameter": {
             "type": "object",
@@ -225,7 +225,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_similar_entities_by_target_ensemblID",
+        "name": "OpenTargets_get_similar_entities_by_target_ensemblID",
         "description": "Retrieve similar entities for a given target ensemblID using a model trained with PubMed.",
         "parameter": {
             "type": "object",
@@ -259,7 +259,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_associated_phenotypes_by_disease_efoId",
+        "name": "OpenTargets_get_associated_phenotypes_by_disease_efoId",
         "description": "Find HPO phenotypes asosciated with the specified disease efoId.",
         "parameter": {
             "type": "object",
@@ -283,7 +283,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_withdrawn_blackbox_status_by_chemblId",
+        "name": "OpenTargets_get_drug_withdrawn_blackbox_status_by_chemblId",
         "description": "Find withdrawn and black-box warning statuses for a specific drug by chemblId.",
         "parameter": {
             "type": "object",
@@ -309,7 +309,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "search_category_counts_by_query_string",
+        "name": "OpenTargets_search_category_counts_by_query_string",
         "description": "Get the count of entries in each entity category (disease, target, drug) based on a query string.",
         "parameter": {
             "type": "object",
@@ -334,7 +334,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_disease_id_description_by_name",
+        "name": "OpenTargets_get_disease_id_description_by_name",
         "description": "Retrieve the efoId and additional details of a disease based on its name.",
         "parameter": {
             "type": "object",
@@ -359,8 +359,8 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_id_description_by_name",
-        "description": "Fetch the drug chemblId and description based on the drug name.",
+        "name": "OpenTargets_get_drug_id_description_by_name",
+        "description": "Fetch the drug chemblId and description based on the drug generic name.",
         "parameter": {
             "type": "object",
             "properties": {
@@ -383,7 +383,31 @@
         "type": "OpentargetToolDrugNameMatch"
     },
     {
-        "name": "get_drug_indications_by_chemblId",
+        "name": "OpenTargets_get_drug_chembId_by_generic_name",
+        "description": "Fetch the drug chemblId and description based on the drug generic name.",
+        "parameter": {
+            "type": "object",
+            "properties": {
+                "drugName": {
+                    "type": "string",
+                    "description": "The generic name of the drug for which the ID is required.",
+                    "required": true
+                }
+            }
+        },
+        "query_schema": "\n  query getDrugIdByName($drugName: String!) {\n    search(queryString: $drugName, entityNames: [\"drug\"]) {\n      hits {\n        id\n        name\n       description\n      }\n    }\n  }\n  ",
+        "label": [
+            "Identification",
+            "Search",
+            "Name",
+            "Drug",
+            "OpenTarget",
+            "GraphQL"
+        ],
+        "type": "OpentargetToolDrugNameMatch"
+    },
+    {
+        "name": "OpenTargets_get_drug_indications_by_chemblId",
         "description": "Fetch indications (treatable phenotypes/diseases) for a given drug chemblId.",
         "parameter": {
             "type": "object",
@@ -407,7 +431,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_gene_ontology_by_ensemblID",
+        "name": "OpenTargets_get_target_gene_ontology_by_ensemblID",
         "description": "Retrieve Gene Ontology annotations for a specific target by Ensembl ID.",
         "parameter": {
             "type": "object",
@@ -429,7 +453,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_homologues_by_ensemblID",
+        "name": "OpenTargets_get_target_homologues_by_ensemblID",
         "description": "Fetch homologues for a specific target by Ensembl ID.",
         "parameter": {
             "type": "object",
@@ -451,7 +475,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_safety_profile_by_ensemblID",
+        "name": "OpenTargets_get_target_safety_profile_by_ensemblID",
         "description": "Retrieve known target safety liabilities for a specific target Ensembl ID.",
         "parameter": {
             "type": "object",
@@ -475,7 +499,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_biological_mouse_models_by_ensemblID",
+        "name": "OpenTargets_get_biological_mouse_models_by_ensemblID",
         "description": "Retrieve biological mouse models, including allelic compositions and genetic backgrounds, for a specific target.",
         "parameter": {
             "type": "object",
@@ -497,7 +521,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_genomic_location_by_ensemblID",
+        "name": "OpenTargets_get_target_genomic_location_by_ensemblID",
         "description": "Retrieve genomic location data for a specific target, including chromosome, start, end, and strand.",
         "parameter": {
             "type": "object",
@@ -519,7 +543,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_subcellular_locations_by_ensemblID",
+        "name": "OpenTargets_get_target_subcellular_locations_by_ensemblID",
         "description": "Retrieve information about subcellular locations for a specific target ensemblID.",
         "parameter": {
             "type": "object",
@@ -541,7 +565,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_synonyms_by_ensemblID",
+        "name": "OpenTargets_get_target_synonyms_by_ensemblID",
         "description": "Retrieve synonyms for specified target, including alternative names and symbols, using given ensemblID.",
         "parameter": {
             "type": "object",
@@ -563,7 +587,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_tractability_by_ensemblID",
+        "name": "OpenTargets_get_target_tractability_by_ensemblID",
         "description": "Retrieve tractability assessments, including modality and values, for a specific target ensembl ID.",
         "parameter": {
             "type": "object",
@@ -586,7 +610,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_classes_by_ensemblID",
+        "name": "OpenTargets_get_target_classes_by_ensemblID",
         "description": "Retrieve the target classes associated with a specific target ensemblID.",
         "parameter": {
             "type": "object",
@@ -608,7 +632,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_enabling_packages_by_ensemblID",
+        "name": "OpenTargets_get_target_enabling_packages_by_ensemblID",
         "description": "Retrieve the Target Enabling Packages (TEP) associated with a specific target ensemblID.",
         "parameter": {
             "type": "object",
@@ -630,7 +654,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_interactions_by_ensemblID",
+        "name": "OpenTargets_get_target_interactions_by_ensemblID",
         "description": "Retrieve interaction data for a specific target ensemblID, including interaction partners and evidence.",
         "label": [
             "Target",
@@ -667,11 +691,11 @@
                 }
             }
         },
-        "query_schema": "\n      query targetInteractions($ensemblId: String!, $page: Pagination!) {\n        target(ensemblId: $ensemblId) {\n          id\n          approvedSymbol\n          interactions(page: $page) {\n            count\n            rows {\n              intA\n              targetA {\n              id\n          approvedSymbol\n        }\n        intB\n        targetB {\n          id\n          approvedSymbol\n        }\n              score\n              sourceDatabase\n              evidences {\n                evidenceScore\n                pubmedId\n                interactionDetectionMethodShortName\n              }\n            }\n          }\n        }\n      }\n    ",
+        "query_schema": "\n      query targetInteractions($ensemblId: String!, $page: Pagination) {\n        target(ensemblId: $ensemblId) {\n          id\n          approvedSymbol\n          interactions(page: $page) {\n            count\n            rows {\n              intA\n              targetA {\n              id\n          approvedSymbol\n        }\n        intB\n        targetB {\n          id\n          approvedSymbol\n        }\n              score\n              sourceDatabase\n              evidences {\n                evidenceScore\n                pubmedId\n                interactionDetectionMethodShortName\n              }\n            }\n          }\n        }\n      }\n    ",
         "type": "OpenTarget"
     },
     {
-        "name": "get_disease_ancestors_parents_by_efoId",
+        "name": "OpenTargets_get_disease_ancestors_parents_by_efoId",
         "description": "Retrieve the disease ancestors and parents in the ontology using the disease EFO ID.",
         "parameter": {
             "type": "object",
@@ -693,7 +717,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_disease_descendants_children_by_efoId",
+        "name": "OpenTargets_get_disease_descendants_children_by_efoId",
         "description": "Retrieve the disease descendants and children in the ontology using the disease EFO ID.",
         "parameter": {
             "type": "object",
@@ -715,7 +739,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_disease_locations_by_efoId",
+        "name": "OpenTargets_get_disease_locations_by_efoId",
         "description": "Retrieve the disease's direct location and indirect location disease terms and IDs using the disease EFO ID.",
         "parameter": {
             "type": "object",
@@ -737,7 +761,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_disease_synonyms_by_efoId",
+        "name": "OpenTargets_get_disease_synonyms_by_efoId",
         "description": "Retrieve disease synonyms by its EFO ID.",
         "parameter": {
             "type": "object",
@@ -759,7 +783,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_disease_description_by_efoId",
+        "name": "OpenTargets_get_disease_description_by_efoId",
         "description": "Retrieve disease description, name, database cros references, obsolete terms, and whether it's a therapeutic area, all using the specified efoId.",
         "parameter": {
             "type": "object",
@@ -781,7 +805,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_disease_therapeutic_areas_by_efoId",
+        "name": "OpenTargets_get_disease_therapeutic_areas_by_efoId",
         "description": "Retrieve the therapeutic areas associated with a specific disease efoId.",
         "parameter": {
             "type": "object",
@@ -803,7 +827,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_adverse_events_by_chemblId",
+        "name": "OpenTargets_get_drug_adverse_events_by_chemblId",
         "description": "Retrieve significant adverse events reported for a specific drug chemblId.",
         "parameter": {
             "type": "object",
@@ -832,7 +856,7 @@
                 }
             }
         },
-        "query_schema": "\n  query drugAdverseEvents($chemblId: String!, $page: Pagination!) {\n    drug(chemblId: $chemblId) {\n      id\n      name\n      adverseEvents(page: $page) {\n        count\n        criticalValue\n       rows {\n          name\n          meddraCode\n          count\n          logLR\n        }\n      }\n    }\n  }\n  ",
+        "query_schema": "\n  query drugAdverseEvents($chemblId: String!, $page: Pagination) {\n    drug(chemblId: $chemblId) {\n      id\n      name\n      adverseEvents(page: $page) {\n        count\n        criticalValue\n       rows {\n          name\n          meddraCode\n          count\n          logLR\n        }\n      }\n    }\n  }\n  ",
         "label": [
             "Drug",
             "AdverseEvents",
@@ -846,7 +870,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_known_drugs_by_drug_chemblId",
+        "name": "OpenTargets_get_known_drugs_by_drug_chemblId",
         "description": "Get a list of known drugs and associated information using the specified chemblId.",
         "parameter": {
             "type": "object",
@@ -868,7 +892,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_parent_child_molecules_by_drug_chembl_ID",
+        "name": "OpenTargets_get_parent_child_molecules_by_drug_chembl_ID",
         "description": "Get parent and child molecules of specified drug chemblId.",
         "parameter": {
             "type": "object",
@@ -890,7 +914,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_approved_indications_by_drug_chemblId",
+        "name": "OpenTargets_get_approved_indications_by_drug_chemblId",
         "description": "Retrieve detailed information about multiple drugs using a list of ChEMBL IDs.",
         "parameter": {
             "type": "object",
@@ -912,7 +936,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_description_by_chemblId",
+        "name": "OpenTargets_get_drug_description_by_chemblId",
         "description": "Get drug name, year of first approval, type, cross references, and max clinical trial phase based on specified chemblId.",
         "parameter": {
             "type": "object",
@@ -934,7 +958,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_synonyms_by_chemblId",
+        "name": "OpenTargets_get_drug_synonyms_by_chemblId",
         "description": "Retrieve the synonyms associated with a specific drug chemblId.",
         "parameter": {
             "type": "object",
@@ -956,7 +980,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_trade_names_by_chemblId",
+        "name": "OpenTargets_get_drug_trade_names_by_chemblId",
         "description": "Retrieve the trade names associated with a specific drug chemblId.",
         "parameter": {
             "type": "object",
@@ -978,7 +1002,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_drug_approval_status_by_chemblId",
+        "name": "OpenTargets_get_drug_approval_status_by_chemblId",
         "description": "Retrieve the approval status of a specific drug chemblId.",
         "parameter": {
             "type": "object",
@@ -1000,7 +1024,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_chemical_probes_by_target_ensemblID",
+        "name": "OpenTargets_get_chemical_probes_by_target_ensemblID",
         "description": "Retrieve chemical probes associated with a specific target using its ensemblID.",
         "parameter": {
             "type": "object",
@@ -1022,7 +1046,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "drug_pharmacogenomics_data",
+        "name": "OpenTargets_drug_pharmacogenomics_data",
         "description": "Retrieve pharmacogenomics data for a specific drug, including evidence levels and genotype annotations.",
         "label": [
             "Drug",
@@ -1060,12 +1084,12 @@
                 }
             }
         },
-        "query_schema": "\n      query drugPharmacogenomicsData($chemblId: String!, $page: Pagination!) {\n        drug(chemblId: $chemblId) {\n          id\n          name\n          pharmacogenomics(page: $page) {\n            datasourceId\n            datatypeId\n            genotype\n            evidenceLevel\n            genotypeAnnotationText\n            genotypeId\n            haplotypeFromSourceId\n            haplotypeId\n            literature\n            pgxCategory\n            phenotypeFromSourceId\n            phenotypeText\n            studyId\n            targetFromSourceId\n            variantFunctionalConsequenceId\n            variantRsId\n            isDirectTarget\n            variantFunctionalConsequence {\n              id\n              label\n            }\n            drugs {\n              drugId\n              drug {\n        name\n      }\n            }\n            target {\n              id\n              approvedSymbol\n            }\n          }\n        }\n      }\n    ",
+        "query_schema": "\n      query drugPharmacogenomicsData($chemblId: String!, $page: Pagination) {\n        drug(chemblId: $chemblId) {\n          id\n          name\n          pharmacogenomics(page: $page) {\n            datasourceId\n            datatypeId\n            genotype\n            evidenceLevel\n            genotypeAnnotationText\n            genotypeId\n            haplotypeFromSourceId\n            haplotypeId\n            literature\n            pgxCategory\n            phenotypeFromSourceId\n            phenotypeText\n            studyId\n            targetFromSourceId\n            variantFunctionalConsequenceId\n            variantRsId\n            isDirectTarget\n            variantFunctionalConsequence {\n              id\n              label\n            }\n            drugs {\n              drugId\n              drug {\n        name\n      }\n            }\n            target {\n              id\n              approvedSymbol\n            }\n          }\n        }\n      }\n    ",
         "type": "OpenTarget"
     },
     {
-        "name": "get_associated_drugs_by_target_ensemblID",
-        "description": "Get known drugs associated with a specific target ensemblID, including clinical trial phase and mechanism of action of the drugs.",
+        "name": "OpenTargets_get_associated_drugs_by_target_ensemblID",
+        "description": "Get known drugs and information (e.g. id, name, MoA) associated with a specific target ensemblID, including clinical trial phase and mechanism of action of the drugs.",
         "parameter": {
             "type": "object",
             "properties": {
@@ -1098,7 +1122,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_associated_diseases_by_drug_chemblId",
+        "name": "OpenTargets_get_associated_diseases_by_drug_chemblId",
         "description": "Retrieve the list of diseases associated with a specific drug chemblId based on clinical trial data or post-marketed drugs.",
         "parameter": {
             "type": "object",
@@ -1121,7 +1145,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_associated_targets_by_drug_chemblId",
+        "name": "OpenTargets_get_associated_targets_by_drug_chemblId",
         "description": "Retrieve the list of targets linked to a specific drug chemblId based on its mechanism of action.",
         "parameter": {
             "type": "object",
@@ -1144,7 +1168,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "multi_entity_search_by_query_string",
+        "name": "OpenTargets_multi_entity_search_by_query_string",
         "description": "Perform a multi-entity search based on a query string, filtering by entity names and pagination settings.",
         "parameter": {
             "type": "object",
@@ -1192,7 +1216,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_gene_ontology_terms_by_goID",
+        "name": "OpenTargets_get_gene_ontology_terms_by_goID",
         "description": "Retrieve Gene Ontology terms based on a list of GO IDs.",
         "parameter": {
             "type": "object",
@@ -1217,7 +1241,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_constraint_info_by_ensemblID",
+        "name": "OpenTargets_get_target_constraint_info_by_ensemblID",
         "description": "Retrieve genetic constraint information for a specific target ensemblID, including expected and observed values, and scores.",
         "parameter": {
             "type": "object",
@@ -1240,7 +1264,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_publications_by_disease_efoId",
+        "name": "OpenTargets_get_publications_by_disease_efoId",
         "description": "Retrieve publications related to a disease efoId, including PubMed IDs and publication dates.",
         "parameter": {
             "type": "object",
@@ -1290,7 +1314,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_publications_by_target_ensemblID",
+        "name": "OpenTargets_get_publications_by_target_ensemblID",
         "description": "Retrieve publications related to a target ensemblID, including PubMed IDs and publication dates.",
         "parameter": {
             "type": "object",
@@ -1340,7 +1364,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_publications_by_drug_chemblId",
+        "name": "OpenTargets_get_publications_by_drug_chemblId",
         "description": "Retrieve publications related to a drug chemblId, including PubMed IDs and publication dates.",
         "parameter": {
             "type": "object",
@@ -1390,7 +1414,7 @@
         "type": "OpenTarget"
     },
     {
-        "name": "get_target_id_description_by_name",
+        "name": "OpenTargets_get_target_id_description_by_name",
         "description": "Get the ensemblId and description based on the target name.",
         "parameter": {
             "type": "object",

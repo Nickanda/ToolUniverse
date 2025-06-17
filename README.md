@@ -7,6 +7,7 @@
 [![TxAgent](https://img.shields.io/badge/Code-TxAgent-purple)](https://github.com/mims-harvard/TxAgent)
 [![ToolUniverse](https://img.shields.io/badge/Code-ToolUniverse-purple)](https://github.com/mims-harvard/ToolUniverse)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-TxAgentT1-yellow)](https://huggingface.co/collections/mims-harvard/txagent-67c8e54a9d03a429bb0c622c)
+[![Model context protocol (MCP)](https://img.shields.io/badge/Model_Context_Protocol_(MCP)_Supported-green)](README_USAGE.md#running-the-mcp-server)
 
   <body>
     <section class="hero">
@@ -87,26 +88,14 @@ pip install tooluniverse
 
 # Usage
 
-**Get all tools**
+ToolUniverse supports both a Python SDK and an MCP server interface. 
+- You can use the Python SDK to interact with ToolUniverse programmatically in your Python projects.
+- You can connect to the ToolUniverse MCP server for remote tool execution and integration with other agentic systems.
 
-```
-from tooluniverse import ToolUniverse
-tooluni = ToolUniverse()
-tooluni.load_tools()
-tool_name_list, tool_desc_list = tooluni.refresh_tool_name_desc()
-print(tool_name_list)
-print(tool_desc_list)
-```
+For more detailed usage examples, see the [README_USAGE](README_USAGE.md) page.
 
-**Function call to a tool**
+For MCP integration with Claude Desktop App, see the [MCP for Claude Tutorial](doc/MCP_for_Claude.md).
 
-```
-from tooluniverse import ToolUniverse
-tooluni = ToolUniverse()
-tooluni.load_tools()
-query = {"name": "get_indications_by_drug_name", "arguments": {"drug_name": "KISUNLA"}}
-tooluni.run(query)
-```
 ## Citation
 
 ```
@@ -124,3 +113,9 @@ tooluni.run(query)
 ## Contact
 If you have any questions or suggestions, please email [Shanghua Gao](mailto:shanghuagao@gmail.com) and [Marinka Zitnik](mailto:marinka@hms.harvard.edu).
 
+## Core contributors
+
+[Shanghua Gao](https://shgao.site);
+[Richard Zhu](https://www.linkedin.com/in/richard-zhu-4236901a7/);
+[Zhenglun Kong](https://zlkong.github.io/homepage/);
+[Sufian Aldogom](saldogom@mit.edu)
